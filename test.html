@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoseTracker API web demo</title>
+    <style>
+        #poseTrackerFrame {
+            width: 350px;
+            height: 350px;
+            border: none;
+        }
+        #infoDisplay {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<iframe id="poseTrackerFrame"
+        src="https://www.posetracker.com/pose_tracker/tracking?token=API_KEY&exercise=squat&difficulty=easy&width=350&height=350&progression=true"
+        allow="camera *;"
+></iframe>
+<div id="infoDisplay">Allow camera and wait few secondes.</div>
+<div id="progression">Squat : 0 %</div>
+<script>
+  window.addEventListener('message', function(event) {
+    if (event.origin !== "https://www.posetracker.com") return;
+
+    const data = JSON.parse(event.data);
+    updateInfoDisplay(data);
+  });
+
+  function updateInfoDisplay(info) {
+    const infoDisplay = document.getElementById('infoDisplay');
+    const progress = document.getElementById('progression');
+
+    // Sorry for that x)
+    if (info.type === 'counter') {
+      infoDisplay.textContent = 'Counter: ' + info.current_count;
+    } else if (info.type === 'progression') {
+      progress.textContent = "Squat : " + info.value + " %"
+    } else if (info.type === 'posture') {
+      infoDisplay.textContent = info.placementMessage
+    } else if (info.type === 'initialization') {
+      infoDisplay.textContent = info.message
+    } else {
+      infoDisplay.textContent = 'Info received: ' + JSON.stringify(info);
+    }
+  }
+</script>
+</body>
+</html>
