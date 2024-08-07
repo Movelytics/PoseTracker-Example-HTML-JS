@@ -24,7 +24,7 @@
 <div id="progression">Squat : 0 %</div>
 <script>
   window.addEventListener('message', function(event) {
-    if (event.origin !== "https://www.posetracker.com") return;
+    if (event.origin !== "https://app.posetracker.com") return;
 
     const data = JSON.parse(event.data);
     updateInfoDisplay(data);
