@@ -26,14 +26,14 @@ Copy/past this in your test.html and modify your API_KEY :
 <body>
 <iframe 
   id="poseTrackerFrame"
-  src="https://www.posetracker.com/pose_tracker/tracking?token=API_KEY&exercise=squat&difficulty=easy&width=350&height=350&progression=true"
+  src="https://app.posetracker.com/pose_tracker/tracking?token=API_KEY&exercise=squat&difficulty=easy&width=350&height=350&progression=true"
   allow="camera *;" 
 />
 <div id="infoDisplay">Allow camera and wait few secondes.</div>
 <div id="progression">Squat : 0 %</div>
 <script>
   window.addEventListener('message', function(event) {
-    if (event.origin !== "https://www.posetracker.com") return;
+    if (event.origin !== "https://app.posetracker.com") return;
 
     const data = JSON.parse(event.data);
     updateInfoDisplay(data);
@@ -66,7 +66,7 @@ First we have the iframe :
 ```
 <iframe 
   id="poseTrackerFrame"
-  src="https://www.posetracker.com/pose_tracker/tracking?token=API_KEY&exercise=squat&difficulty=easy&width=350&height=350&progression=true"
+  src="https://app.posetracker.com/pose_tracker/tracking?token=API_KEY&exercise=squat&difficulty=easy&width=350&height=350&progression=true"
   allow="camera *;" 
 />
 ```
@@ -77,7 +77,7 @@ PoseTracker page will send information with a ```windows.poseMessage(data)``` so
 ```
 window.addEventListener('message', function(event) {
     // First check if the message come from posetracker
-    if (event.origin !== "https://www.posetracker.com") return;
+    if (event.origin !== "https://app.posetracker.com") return;
 
     const data = JSON.parse(event.data);
     updateInfoDisplay(data);
@@ -105,4 +105,4 @@ function updateInfoDisplay(info) {
   }
 ```
 
-# More infos here : https://www.posetracker.com/
+# More infos here : https://posetracker.com/
